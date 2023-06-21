@@ -23,7 +23,7 @@ header{
     height: 20vh;
 }
 .img-header{
-    width: 8%;
+    width: max-content 8%;
     height: 10vh;
     background: url(Calculator-icon);
     margin: 2%;
@@ -34,11 +34,7 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Inter';
-    font-style: normal;
-    font-size: 200%;
-    /* identical to box height, or 96px */
-    letter-spacing: -0.01em;
+    font-family: 'Verdana';
     color: #FFFFFF;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     
@@ -83,7 +79,7 @@ main{
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 62vh;
+    height: 65vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,7 +90,7 @@ main{
 footer{
     display: flex;
     width: 100%;
-    height: 25vh;
+    height: 18vh;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
@@ -102,9 +98,19 @@ footer{
     border: none;
     color: white;
     text-decoration: none;
-    font-family: 'Newsreader';
+    font-family: 'Verdana';
     font-size: medium;
 }
+footer>a,img{
+    width: 80px;
+    height: 40px;
+    margin-left: 2%;
+    border-radius: 8px;
+  }
+
+
+
+
 .app-calculadora{
     width: 60%;
     height: 60%;
@@ -129,17 +135,19 @@ footer{
     font-family: sans-serif;
     font-size: x-large;
 }
-.operands, .data-all-clear{
+.operands, .data-all-clear, .operands-equals{
     width: auto;
     height: auto;
     background-color: rgba(255, 122, 0, 1);
     color:  white;
-
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 20px;
     border: none;
-
 }
+.operands-equals{
+    background-color: black;
+}
+
 .numbers{
    width: auto ;
    height: auto ; 
@@ -149,15 +157,9 @@ footer{
    font-family: Verdana, Geneva, Tahoma, sans-serif;
    font-size: 20px;
 }
-.operands-equals{
-    background-color: rgba(130, 30, 120, 0.5)  ;
-    color: white;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 20px;
-    border: none;
-}
+
 /* Animate the size, inside */
-.operands:hover{
+.data-all-clear:hover,.operands:hover{
     background-color: rgba(255, 123, 0, 0.5);
 }
 .numbers:hover{
@@ -166,6 +168,9 @@ footer{
 }
 button{
     cursor: pointer;
+}
+.operands.rad{
+    background-color: rgba(130, 30, 120, 0.5)  ;
 }
 
 
@@ -212,6 +217,7 @@ button{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: medium;    
 }
+.grandesa { width: 64%;}
 .btn-f{
     width: 20%;
     background-color: rgba(255, 122, 0, 1);
@@ -236,6 +242,7 @@ button{
     text-align: center;
     color:white;
     font-size: large;
+    visibility: hidden;
 }
 .box-1,.box-5{
    display: flex;

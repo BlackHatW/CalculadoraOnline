@@ -13,7 +13,7 @@
    <div class="conteiner"> 
         <header>
             <div class="titulo">
-                <h3>Calculadora Online</h3>
+                <h2>Calculadora Online</h2>
                 <img class="img-header" src="img/Calculator-icon.png" >
             </div>
         
@@ -21,7 +21,7 @@
                 <ul class="menu-list">
                     <li class="menu-list-itens" id="calculadora">Calculadora</li>
                     <li class="menu-list-itens" id="conversor">Conversor</li>
-                    <li class="menu-list-itens" id="cotação-moedas">Cotação</li>
+                    <li class="menu-list-itens" id="cotação-moedas" >Cotação</li>
                     <li class="menu-list-itens" id="sobre">Sobre</li>
                 </ul>
             </nav>
@@ -30,11 +30,11 @@
         <main>
             <div class="app-calculadora">
                 <div class="view">
-                    <div class="previousOperand">25+</div>
-                    <div class="currentOperand">1000000</div>
+                    <div class="ans"></div>
+                    <div class="currentOperand"></div>
                 </div>
-                <button class="operands">Rad</button>
-                <button class="operands">Deg</button>
+                <button class="operands rad">Rad</button>
+                <button class="operands deg">Deg</button>
                 <button class="operands">x!</button>
                 <button class="operands">(</button>
                 <button class="operands">)</button>
@@ -53,7 +53,7 @@
                 <button class="numbers" data-numbers="">4</button>
                 <button class="numbers" data-numbers="">5</button>
                 <button class="numbers" data-numbers="">6</button>
-                <button class="operands">X</button>
+                <button class="operands">x</button>
                 <button class="operands">e</button>
                 <button class="operands">tan</button>
                 <button class="operands">√</button>
@@ -72,53 +72,20 @@
             <div class="app-conversor">
                         <div class="box-1">
                             <select class="grandesa"> 
-                                    <option value="Armazenamento de Dados">Armazenamento de Dados</option>
-                                    <option selected="1" value="Comprimento">Comprimento</option>
-                                    <option value="Consumo de Combustível">Consumo de Combustível</option>
-                                    <option value="Energia Mecânica">Energia Mecânica</option>
-                                    <option value="Frequência">Frequência</option>
-                                    <option value="Massa">Massa</option>
-                                    <option value="Pressão">Pressão</option>
-                                    <option value="Temperatura">Temperatura</option>
-                                    <option value="Tempo">Tempo</option>
-                                    <option value="Transmissão de Dados">Transmissão de Dados</option>
-                                    <option value="Velocidade">Velocidade</option>
-                                    <option value="Volume">Volume</option>
-                                    <option value="Área">Área</option>
-                                    <option value="Ângulo">Ângulo</option> 
+                                   
                             </select>
                         </div>
                         <div class="box-2">
                                 <input type="text" inputmode="numeric"  class="text-box">
                                 <select class="prefixo">    
-                                    <option>Quilômetro</option>
-                                    <option>Metro</option>
-                                    <option>Centímetro</option>
-                                    <option>Milímetro</option>
-                                    <option>Micrômetro</option>
-                                    <option>Nanômetro</option>
-                                    <option>Milha</option>
-                                    <option>Jarda</option>
-                                    <option>Pé</option>
-                                    <option>Polegada</option>
-                                    <option>Milha náutica</option>
-                                    </select>
+                                    
+                                </select>
                         </div>        
                             <div class="box-3">=</div>
                             <div class="box-4"> 
-                                    <input type="text" inputmode="numeric" class="text-box">
+                                    <input type="text" inputmode="numeric" class="text-box" disabled>
                                     <select class="prefixo">    
-                                            <option>Quilômetro</option>
-                                            <option>Metro</option>
-                                            <option>Centímetro</option>
-                                            <option>Milímetro</option>
-                                            <option>Micrômetro</option>
-                                            <option>Nanômetro</option>
-                                            <option>Milha</option>
-                                            <option>Jarda</option>
-                                            <option>Pé</option>
-                                            <option>Polegada</option>
-                                            <option>Milha náutica</option>
+                                      
                                     </select>
                             </div>
                                 <div class="box-5">
@@ -127,9 +94,9 @@
                                 </div>     
             </div>
             <div class="app-cotação-moedas">
-                <h1 class="titulo-tabela">Cotacões de Moedas</h1>
-                <h2 class="titulo-tabela-2">Atualizado em: 05/06/2023 às 15:18*</h2>
-                <table class="table table-hover table-dark" id="cotações" >
+                <h3 class="titulo-tabela">Cotacão de Moedas</h3>
+                <h4 class="titulo-tabela-2" id="cotação-tempo">Atualizado em: 05/06/2023 às 15:18*</h4>
+                <table class="table table-hover" id="cotações" >
                     <thead>
                       <tr>
                         <th scope="col" class="ativos-bolsa" id="key">Código</th>
@@ -146,12 +113,16 @@
                     </tbody>
                   </table>
             </div>
-            <div class="sobre"></div>
+            <div class="sobre">
+                <h2>Em Desenvolvimento....</h2>
+            </div>
         </main>
-        <footer >Copyright © 2023 Welington Nogueira</footer>
+        <footer >Copyright © 2023 Welington Nogueira <a href="https://github.com/BlackHatW""><img src="img/github-logo.jpg" ></a></footer>
     </div>
     <script type="text/javascript" src="js/navegação.js"></script>
     <script type="text/javascript" src="js/calculadora.js"></script>
-    <script type="text/javascript" src="js/moedas.js"></script>
+    <script type="text/javascript" src="js/cotação.js"></script>
+    <script type="text/javascript" src="js/conversor.js"></script>
+
 </body>
 </html>

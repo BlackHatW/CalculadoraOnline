@@ -1,133 +1,215 @@
-const previousOperandText = document.querySelector(".previousOperand");
+const ans = document.querySelector(".ans");
 const currentOperandText = document.querySelector(".currentOperand");
 const operands = document.querySelectorAll(".operands");
 const numbers = document.querySelectorAll(".numbers");
 const equals = document.querySelector(".operands-equals");
 const allClearButton = document.querySelector(".data-all-clear");
+let memoria = new Array();
+let DEG = "Rad"; // Variável para armazenar o estado da medida Radianos/Graus
 
-class Calculator {
-    constructor(previousOperandText, currentOperandText) {
-      this.previousOperandText = previousOperandText;
-      this.currentOperandText = currentOperandText;
-      this.clear();
-    }
-  
-    formatDisplayNumber(number) {
-      const stringNumber = number.toString();
-  
-      const integerDigits = parseFloat(stringNumber.split(".")[0]);
-      const decimalDigits = stringNumber.split(".")[1];
-  
-      let integerDisplay;
-  
-      if (isNaN(integerDigits)) {
-        integerDisplay = "";
-      } else {
-        integerDisplay = integerDigits.toLocaleString("en", {
-          maximumFractionDigits: 0,
-        });
-      }
-  
-      if (decimalDigits != null) {
-        return `${integerDisplay}.${decimalDigits}`;
-      } else {
-        return integerDisplay;
-      }
-    }
-  
 
-    calculate() {
-      let result;
-  
-      const _previousOperand = parseFloat(this.previousOperand);
-      const _currentOperand = parseFloat(this.currentOperand);
-  
-      if (isNaN(_previousOperand) || isNaN(_currentOperand)) return;
-  
-      switch (this.operation) {
-        case "+":
-          result = _previousOperand + _currentOperand;
-          break;
-        case "-":
-          result = _previousOperand - _currentOperand;
-          break;
-        case "÷":
-          result = _previousOperand / _currentOperand;
-          break;
-        case "X":
-          result = _previousOperand *_currentOperand;
-          break;
-        default:
-          return;
-      }
-  
-      this.currentOperand = result;
-      this.operation = undefined;
-      this.previousOperand = "";
-    }
-  
-    chooseOperation(operation) {
-      if (this.currentOperand === "") return;
-  
-      if (this.previousOperand !== "") {
-        this.calculate();
-      }
-  
-      this.operation = operation;
-  
-      this.previousOperand = this.currentOperand;
-      this.currentOperand = "";
-    }
-  
-    appendNumber(number) {
-      if (this.currentOperand.includes(".") && number === ".") return;
-  
-      this.currentOperand = `${this.currentOperand}${number.toString()}`;
-    }
-  
-    clear() {
-      this.currentOperand = "";
-      this.previousOperand = "";
-      this.operation = undefined;
-    }
-  
-    updateDisplay() {
-      this.previousOperandText.innerText = `${this.formatDisplayNumber(
-        this.previousOperand
-      )} ${this.operation || ""}`;
-      this.currentOperandText.innerText = this.formatDisplayNumber(
-        this.currentOperand
-      );
-    }
+function fatorial(n) {
+  if (n === 0) {
+    return 1;
   }
-  
-  const calculator = new Calculator(
-    previousOperandText,
-    currentOperandText
-  );
-  
-  for (const numberButton of numbers) {
-    numberButton.addEventListener("click", () => {
-      calculator.appendNumber(numberButton.innerText);
-      calculator.updateDisplay();
-    });
+  let result = n;
+  for (let i = 1; i < n; i++) {
+    result *= n - i;
   }
-  
-  for (const operationButton of operands) {
-    operationButton.addEventListener("click", () => {
-      calculator.chooseOperation(operationButton.innerText);
-      calculator.updateDisplay();
-    });
+  return result;
+}
+
+function calcularExpressao(expressao) {
+  const expressaoGlobal = expressao;
+  const regexNumerosOperadores = /-?\d+(?:\.\d+)?|[+\-*%^()]/g;
+  expressao = expressao.replace(/π/g, Math.PI);
+  expressao = expressao.replace(/e/g, Math.E);
+  expressao = expressao.replace(/x/g, "*");
+  expressao = expressao.replace(/÷/g, "/");
+  expressao = expressao.replace(/E/g,'*10**');
+  expressao = expressao.replace(/Ans/g, memoria[memoria.length-1]);
+
+  while(expressao.includes("^")){
+     expressao = expressao.replace("^", "**");
   }
-  
-  allClearButton.addEventListener("click", () => {
-    calculator.clear();
-    calculator.updateDisplay();
-  });
-  
-  equals.addEventListener("click", () => {
-    calculator.calculate();
-    calculator.updateDisplay();
-  });
-  
  
+  let result = undefined;
+
+  if (regexNumerosOperadores.test(expressao)) {
+    if (expressao.includes("%")) {
+      let n = expressao.split("%");
+      result = (parseFloat(n[0]) / 100) * parseFloat(n[1]);
+      return result;
+    }
+
+    try {
+      result = eval(expressao);
+    } catch (error) {
+      result = "Erro de Expressão!";
+      return result;
+    }
+  } else {
+    result = "Erro de Expressão!";
+    return result;
+  }
+
+  return result;
+}
+
+for (const numberButton of numbers) {
+  numberButton.addEventListener("click", () => {
+    let str = currentOperandText.innerText;
+    str = str.substring(str.length - 1);
+
+    if (numberButton.innerText == ".") {
+      if (str.includes(".")) {
+        return;
+      } else {
+        currentOperandText.innerText += numberButton.innerText;
+      }
+    } else {
+      currentOperandText.innerText += numberButton.innerText;
+    }
+  });
+}
+
+for (const operationButton of operands) {
+  operationButton.addEventListener("click", () => {
+    let strCompleta = currentOperandText.innerText.trim();
+    let str = strCompleta.substring(strCompleta.length - 1);
+    let btn = operationButton.innerText;
+
+    switch (btn) {
+      case "x":
+      case "÷":
+      case "+":
+      case "-":
+      case "π":
+      case "e":
+        if (str.includes(btn)) {
+          return;
+        } else {
+          currentOperandText.innerHTML += ` ${operationButton.innerText}&nbsp;`;
+        }
+        break;
+      case "sin":
+        if (strCompleta != "") {
+          let rad = parseFloat(strCompleta); // Valor em radianos
+          if (DEG == "Deg") {
+            rad = parseFloat(strCompleta) * (Math.PI / 180); // converte o Valor de Graus para Radianos Novamente
+          } // Math.js só trabalha com valores radianos
+          currentOperandText.innerHTML = `${Math.sin(rad)}`;
+          memoria.push(currentOperandText.innerText);
+        }
+        break;
+      case "cos":
+        if (strCompleta != "") {
+          let rad = parseFloat(strCompleta); // Valor em radianos
+          if (DEG == "Deg") {
+            rad = parseFloat(strCompleta) * (Math.PI / 180); // converte o Valor de Graus para Radianos Novamente
+          } // Math.js só trabalha com valores radianos
+          currentOperandText.innerHTML = `${Math.cos(rad)}`;
+          memoria.push(currentOperandText.innerText);
+        }
+        break;
+      case "tan":
+        if (strCompleta != "") {
+          let rad = parseFloat(strCompleta); // Valor em radianos
+          if (DEG == "Deg") {
+            rad = parseFloat(strCompleta) * (Math.PI / 180); // converte o Valor de Graus para Radianos Novamente
+          } // Math.js só trabalha com valores radianos
+          currentOperandText.innerHTML = `${Math.tan(rad)}`;
+          memoria.push(currentOperandText.innerText);
+        }
+        break;
+      case "In":
+        if (strCompleta != "") {
+          currentOperandText.innerHTML = `${Math.log(parseFloat(strCompleta))}`;
+          memoria.push(currentOperandText.innerText);
+        }
+        break;
+      case "log":
+        if (strCompleta != "") {
+          currentOperandText.innerHTML = `${Math.log10(parseFloat(strCompleta))}`;
+          memoria.push(currentOperandText.innerText);
+        }
+        break;
+      case "√":
+        if (strCompleta != "") {
+          currentOperandText.innerHTML = `${Math.sqrt(parseFloat(strCompleta))}`;
+          memoria.push(currentOperandText.innerText);
+        }
+        break;
+      case "Deg":
+        DEG = "Deg";
+        let deg = document.querySelector(".deg");
+        deg.style = "background-color: rgba(130, 30, 120, 0.5);";
+        document.querySelector(".rad").style =
+          "background-color: rgba(255, 122, 0, 1);";
+        break;
+      case "Rad":
+        DEG = "Rad";
+        let rad = document.querySelector(".rad");
+        rad.style = "background-color: rgba(130, 30, 120, 0.5);";
+        document.querySelector(".deg").style =
+          "background-color: rgba(255, 122, 0, 1);";
+        break;
+      case "x!":
+        if (strCompleta != "") {
+          currentOperandText.innerHTML = `${fatorial(parseFloat(strCompleta))}`;
+          memoria.push(currentOperandText.innerText);
+        }
+        break;
+      case "xy":
+        currentOperandText.innerHTML += `^&nbsp;`;
+        break;
+      case "(":
+        currentOperandText.innerHTML += `(`;
+        break;
+      case ")":
+        currentOperandText.innerHTML += `)&nbsp;`;
+        break;
+      case "%":
+        if (str.includes(btn)) {
+          return;
+        } else {
+          currentOperandText.innerHTML += ` ${operationButton.innerText}&nbsp;`;
+        }
+        break;
+      case "EXP":
+        if (str.includes('E') || str == "" || isNaN(str)) {
+          return;
+        } else {
+          currentOperandText.innerHTML += `E`;
+        }
+        break;
+      case "Ans":
+        if (strCompleta.includes("Ans")) {
+          currentOperandText.innerHTML += ` x Ans`;
+        } else {
+          currentOperandText.innerHTML += `Ans`;
+        }
+    }
+  });
+}
+
+allClearButton.addEventListener("click", () => {
+  if (allClearButton.innerText == "AC") {
+    currentOperandText.innerText = "";
+    allClearButton.innerText = "CE";
+  } else {
+    let str = currentOperandText.innerText.toString();
+    str = str.substring(0, str.length - 1);
+    currentOperandText.innerText = str;
+  }
+});
+
+equals.addEventListener("click", () => {
+  allClearButton.innerText = "AC";
+  let expressao = currentOperandText.innerText.toString().trim();
+  if (expressao != "") {
+    let resultado = calcularExpressao(expressao);
+    currentOperandText.innerText = resultado.toString();
+    memoria.push(resultado);
+  }
+});
