@@ -1,0 +1,18 @@
+{
+   "comprimento": {
+     "unidades": ["metro", "quilômetro", "centímetro", "milímetro", "pé", "polegada", "jardas", "milhas", "milhas náuticas"]
+   },
+   "temperatura": {
+     "unidades": ["celsius", "fahrenheit", "kelvin"]
+   },
+   "massa": {
+     "unidades": ["quilograma", "grama","miligrama", "tonelada", "libra", "onça"]
+   },
+   "tempo": {
+     "unidades": ["segundo", "minuto", "hora", "dia", "semana", "mês", "ano"]
+   },
+   "volume": {
+     "unidades": ["metro cúbico", "litro", "mililitro", "galão", "pinta", "onças fluídas"]
+   }
+ }
+ 

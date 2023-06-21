@@ -1,0 +1,26 @@
+.app-cotação-moedas{
+    width: 99%;
+    height: 99%;
+    overflow-y: auto;
+    display: none;
+}
+.app-cotação-moedas::-webkit-scrollbar {width: 0! important ;}
+
+.table{
+    background-color: transparent;
+    color: white;
+}
+
+tr:hover{
+    background-color: white;
+    color: blueviolet;
+}
+
+
+.titulo-tabela, .titulo-tabela-2{
+    color:white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+  
