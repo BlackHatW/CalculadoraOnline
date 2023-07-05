@@ -16,11 +16,13 @@ tr:hover{
     color: blueviolet;
 }
 
-
 .titulo-tabela, .titulo-tabela-2{
     color:white;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
+.sobre{
+    display: none; 
+    color: white;
+}
 
   
